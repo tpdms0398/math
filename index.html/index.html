@@ -1,0 +1,2636 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="BB교습소">
+    <meta name="format-detection" content="telephone=no">
+    <title>BB교습소 - 3개월 안에 한 등급 UP!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+        
+        .mobile-menu-btn span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+        
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+        
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+        
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 1000;
+            padding-top: 100px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-nav.active {
+            display: block;
+            transform: translateX(0);
+        }
+        
+        .mobile-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+        
+        .mobile-nav li {
+            margin: 2rem 0;
+        }
+        
+        .mobile-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: block;
+            padding: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .mobile-nav a:hover,
+        .mobile-nav a:active {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-button {
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin: 10px;
+            /* 모바일 터치 최적화 */
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            touch-action: manipulation;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        .cta-button:hover,
+        .cta-button:active {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+        }
+        
+        .cta-secondary {
+            background: transparent;
+            border: 2px solid white;
+        }
+        
+        /* Stats Section */
+        .stats {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .stat-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        /* Success Stories */
+        .success-stories {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+        
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .story-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .story-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .story-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        
+        .story-info h4 {
+            margin-bottom: 0.2rem;
+        }
+        
+        .story-grade {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .story-content {
+            font-style: italic;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .grade-improvement {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+        
+        /* Teacher Section */
+        .teacher-section {
+            padding: 80px 0;
+        }
+        
+        .teacher-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .teacher-content {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .teacher-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+        
+        .teacher-info {
+            padding: 2rem;
+        }
+        
+        .teacher-name {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .teacher-title {
+            color: #667eea;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .teacher-credentials {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .teacher-credentials li {
+            padding: 0.3rem 0;
+            color: #666;
+        }
+        
+        .teacher-credentials li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .contact-form {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.9);
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            width: 30px;
+        }
+        
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        /* Floating Action */
+        .floating-action {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #ff6b6b;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.3);
+            animation: pulse 2s infinite;
+            z-index: 1000;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            touch-action: manipulation;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(255, 107, 107, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 107, 0);
+            }
+        }
+        
+        /* Student Dashboard */
+        .student-portal {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+        
+        .portal-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .portal-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .portal-content {
+            padding: 2rem;
+        }
+        
+        .login-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .student-dashboard {
+            display: none;
+        }
+        
+        .dashboard-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border: 2px solid #f0f0f0;
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: border-color 0.3s;
+        }
+        
+        .dashboard-card:hover {
+            border-color: #667eea;
+        }
+        
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .progress-bar {
+            background: #f0f0f0;
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        
+        .score-display {
+            text-align: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+        
+        .score-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .score-change {
+            font-size: 0.9rem;
+            color: #28a745;
+            margin-top: 0.5rem;
+        }
+        
+        .homework-list {
+            list-style: none;
+        }
+        
+        .homework-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .homework-status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .weekly-schedule {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .schedule-day {
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .schedule-day.has-class {
+            background: #667eea;
+            color: white;
+        }
+        
+        .schedule-day.no-class {
+            background: #f8f9fa;
+            color: #666;
+        }
+        
+        .logout-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            float: right;
+            margin-top: 1rem;
+        }
+        
+        .achievement-badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #333;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin: 0.2rem;
+        }
+        
+        .recent-tests {
+            margin-top: 1rem;
+        }
+        
+        .test-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .test-score {
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .hero {
+                padding: 120px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.2;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.1rem;
+                line-height: 1.4;
+            }
+            
+            /* 모바일 CTA 버튼 개선 */
+            .hero .cta-button {
+                display: inline-block;
+                width: auto;
+                max-width: 280px;
+                margin: 8px auto;
+                padding: 16px 24px;
+                font-size: 1rem;
+                min-height: 48px;
+                text-align: center;
+                line-height: 1.3;
+                font-weight: 600;
+                /* 모바일 터치 개선 */
+                border: none;
+                outline: none;
+                -webkit-appearance: none;
+                -webkit-border-radius: 50px;
+                border-radius: 50px;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                touch-action: manipulation;
+                user-select: none;
+                -webkit-user-select: none;
+                cursor: pointer;
+            }
+            
+            .hero .cta-secondary {
+                background: rgba(255,255,255,0.2);
+                border: 2px solid white !important;
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+            
+            .hero .cta-button:active,
+            .hero .cta-button:focus {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+            }
+            
+            .hero .cta-secondary:active,
+            .hero .cta-secondary:focus {
+                background: rgba(255,255,255,0.3);
+                transform: translateY(-2px);
+            }
+            
+            .teacher-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            /* 모바일 학생 포털 개선 */
+            .student-portal {
+                padding: 40px 0;
+                margin-top: 0;
+            }
+            
+            .portal-container {
+                margin: 10px auto 40px auto;
+                border-radius: 15px;
+                box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+                /* 스크롤 마진 추가 */
+                scroll-margin-top: 120px;
+            }
+            
+            .portal-header {
+                padding: 2rem 1rem;
+            }
+            
+            .portal-header h2 {
+                font-size: 1.4rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .portal-header p {
+                font-size: 0.95rem;
+                opacity: 0.9;
+            }
+            
+            .portal-content {
+                padding: 1.5rem;
+            }
+            
+            /* 학습현황 확인 섹션 식별 개선 */
+            #student-check {
+                scroll-margin-top: 120px;
+                padding-top: 20px;
+            }
+            
+            .input-group input {
+                padding: 16px;
+                font-size: 16px; /* iOS 줌 방지 */
+                border-radius: 12px;
+            }
+            
+            .login-form .cta-button {
+                width: 100%;
+                margin: 1rem 0;
+                padding: 16px;
+                font-size: 1.1rem;
+                min-height: 52px;
+            }
+            
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .dashboard-header {
+                padding: 1.5rem 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .dashboard-header h3 {
+                font-size: 1.3rem;
+            }
+            
+            .dashboard-card {
+                padding: 1rem;
+            }
+            
+            .card-title {
+                font-size: 1.1rem;
+            }
+            
+            .score-number {
+                font-size: 1.8rem;
+            }
+            
+            .weekly-schedule {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 0.3rem;
+            }
+            
+            .schedule-day {
+                padding: 0.4rem 0.2rem;
+                font-size: 0.8rem;
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .homework-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .homework-status {
+                align-self: flex-end;
+                min-height: 36px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .test-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.3rem;
+            }
+            
+            .test-score {
+                align-self: flex-end;
+            }
+            
+            .achievement-badge {
+                font-size: 0.7rem;
+                padding: 0.3rem 0.6rem;
+                min-height: 28px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .logout-btn {
+                width: 100%;
+                float: none;
+                margin-top: 1rem;
+                padding: 12px;
+                min-height: 44px;
+            }
+            
+            /* 모바일 플로팅 버튼 */
+            .floating-action {
+                bottom: 20px;
+                right: 20px;
+                width: 52px;
+                height: 52px;
+                font-size: 1.3rem;
+            }
+            
+            /* 모바일 모달 */
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                padding: 1.5rem;
+            }
+            
+            /* 모바일 폼 */
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .form-group input,
+            .form-group textarea,
+            .form-group select {
+                font-size: 16px; /* iOS 줌 방지 */
+                padding: 14px;
+            }
+            
+            /* 모바일 통계 */
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .stat-item {
+                padding: 1.5rem 1rem;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            /* 모바일 특성 */
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+            }
+            
+            /* 모바일 성공사례 */
+            .stories-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .story-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* 작은 모바일 기기 */
+        @media (max-width: 480px) {
+            .hero {
+                padding: 110px 0 70px;
+            }
+            
+            .hero h1 {
+                font-size: 1.7rem;
+                line-height: 1.2;
+            }
+            
+            .hero .subtitle {
+                font-size: 1rem;
+                line-height: 1.4;
+                margin-bottom: 1.5rem;
+            }
+            
+            .hero .cta-button {
+                display: block;
+                width: 85%;
+                max-width: 280px;
+                margin: 12px auto;
+                padding: 16px 20px;
+                font-size: 1rem;
+                min-height: 52px;
+            }
+            
+            .portal-header h2 {
+                font-size: 1.2rem;
+            }
+            
+            .portal-header p {
+                font-size: 0.9rem;
+            }
+            
+            .dashboard-header h3 {
+                font-size: 1.2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .contact-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .contact-icon {
+                margin-right: 0;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+                line-height: 1.2;
+            }
+        }
+        
+        /* iOS 최적화 */
+        @supports (-webkit-touch-callout: none) {
+            .input-group input {
+                -webkit-appearance: none;
+                -webkit-border-radius: 12px;
+                border-radius: 12px;
+                font-size: 16px !important;
+                padding: 16px;
+                background-color: #fff;
+                -webkit-user-select: text;
+                user-select: text;
+            }
+            
+            .input-group input:focus {
+                -webkit-appearance: none;
+                outline: none;
+                border-color: #667eea;
+                box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            }
+            
+            .cta-button {
+                -webkit-appearance: none;
+                -webkit-border-radius: 50px;
+                border-radius: 50px;
+                cursor: pointer;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                touch-action: manipulation;
+            }
+            
+            * {
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                -webkit-touch-callout: none;
+            }
+            
+            p, span, div:not(.cta-button):not(.floating-action) {
+                -webkit-user-select: text;
+                user-select: text;
+                -webkit-touch-callout: default;
+            }
+        }
+        
+        /* iOS 안전 영역 지원 */
+        @supports (padding: max(0px)) {
+            .floating-action {
+                bottom: max(20px, env(safe-area-inset-bottom));
+                right: max(20px, env(safe-area-inset-right));
+            }
+            
+            header {
+                padding-top: max(1rem, env(safe-area-inset-top));
+            }
+        }
+        
+        /* 로딩 스피너 */
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* 에러 모달 스타일 개선 */
+        .error-modal .modal-content,
+        .success-modal .modal-content {
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .error-icon,
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .error-title,
+        .success-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .error-message {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .demo-accounts {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            text-align: left;
+        }
+        
+        .demo-accounts h4 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .demo-account {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .account-info {
+            flex: 1;
+        }
+        
+        .account-id {
+            font-weight: bold;
+            color: #333;
+            font-size: 1rem;
+        }
+        
+        .account-pw {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .copy-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            touch-action: manipulation;
+        }
+        
+        .copy-btn:active {
+            background: #5a6fd8;
+        }
+        
+        .error-tips {
+            background: #fff3cd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: left;
+        }
+        
+        .error-tips h4 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
+        
+        .error-tips ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+        
+        .error-tips li {
+            color: #856404;
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            min-width: 80px;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            touch-action: manipulation;
+        }
+        
+        .modal-btn.primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .modal-btn.secondary {
+            background: #f8f9fa;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+        
+        .modal-btn:active {
+            transform: translateY(1px);
+        }
+        
+        /* 모바일 모달 최적화 */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 90%;
+                max-width: 350px;
+                margin: 15% auto;
+                padding: 1.5rem;
+            }
+            
+            .demo-account {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+            }
+            
+            .copy-btn {
+                width: 100%;
+                padding: 12px;
+                font-size: 1rem;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .modal-btn {
+                width: 100%;
+                padding: 12px;
+                min-height: 44px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">🎯 BB교습소</div>
+            <ul class="nav-links">
+                <li><a href="#home">홈</a></li>
+                <li><a href="#features">특징</a></li>
+                <li><a href="#student-check">학습현황</a></li>
+                <li><a href="#success">성공사례</a></li>
+                <li><a href="#teacher">선생님 소개</a></li>
+                <li><a href="#contact">상담신청</a></li>
+            </ul>
+            <div class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav" id="mobileNav">
+            <ul>
+                <li><a href="#home" onclick="closeMobileMenu()">🏠 홈</a></li>
+                <li><a href="#features" onclick="closeMobileMenu()">⭐ 특징</a></li>
+                <li><a href="#student-check" onclick="closeMobileMenu()">📊 학습현황 확인</a></li>
+                <li><a href="#success" onclick="closeMobileMenu()">🏆 성공사례</a></li>
+                <li><a href="#teacher" onclick="closeMobileMenu()">👨‍🏫 선생님 소개</a></li>
+                <li><a href="#contact" onclick="closeMobileMenu()">📞 상담신청</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>3개월 안에 한 등급 UP!</h1>
+            <p class="subtitle">성적이 오르지 않으면 100% 환불 보장 | 개별 맞춤 1:1 케어</p>
+            <a href="#contact" class="cta-button">무료 체험수업 신청</a>
+            <button class="cta-button cta-secondary" onclick="scrollToStudentCheck(event)" type="button">우리 아이 학습현황 확인</button>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">28.5</div>
+                    <div class="stat-label">평균 성적 향상 점수</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">학부모 만족도</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">87%</div>
+                    <div class="stat-label">목표 등급 달성률</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">90%</div>
+                    <div class="stat-label">재등록률</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">왜 스마트수학교실일까요?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👨‍🏫</div>
+                    <h3 class="feature-title">1:1 맞춤 관리</h3>
+                    <p>학생 개별 수준에 맞춘 맞춤형 커리큘럼과 세심한 1:1 케어로 확실한 성과를 보장합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">실시간 학습 관리</h3>
+                    <p>카카오톡을 통한 실시간 학습 현황 공유와 숙제 관리로 학부모님의 걱정을 덜어드립니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">성과 보장 시스템</h3>
+                    <p>3개월 안에 목표 등급을 달성하지 못하면 수강료를 100% 환불해드리는 성과 보장 프로그램입니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">검증된 실력</h3>
+                    <p>서울대 수학교육과 출신 원장과 15년 경력의 전문 교사가 직접 수업합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏰</div>
+                    <h3 class="feature-title">24시간 질문 해결</h3>
+                    <p>수업 시간 외에도 카카오톡을 통해 언제든지 질문하고 답변받을 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-title">실시간 학습 현황 조회</h3>
+                    <p>학생별 고유번호로 언제든지 출석, 성적, 숙제 현황을 실시간으로 확인할 수 있습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Learning Portal -->
+    <section id="student-check" class="student-portal">
+        <div class="container">
+            <div class="portal-container">
+                <div class="portal-header">
+                    <h2>학생 학습 현황 조회</h2>
+                    <p>학생 고유번호로 실시간 학습 상황을 확인하세요</p>
+                </div>
+                
+                <div class="portal-content">
+                    <!-- Login Form -->
+                    <div id="loginSection" class="login-form">
+                        <div class="input-group">
+                            <label for="studentId">학생 고유번호</label>
+                            <input type="text" 
+                                   id="studentId" 
+                                   placeholder="예: BB2025001" 
+                                   maxlength="10"
+                                   onfocus="handleInputFocus(event)"
+                                   onkeypress="handleKeyPress(event)"
+                                   autocomplete="off"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="false">
+                            <small style="color: #666; font-size: 0.9rem;">* 등록 시 제공받은 고유번호를 입력해주세요</small>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="studentPassword">비밀번호</label>
+                            <input type="password" 
+                                   id="studentPassword" 
+                                   placeholder="생년월일 6자리 (예: 090315)"
+                                   onfocus="handleInputFocus(event)"
+                                   onkeypress="handleKeyPress(event)"
+                                   autocomplete="off"
+                                   autocorrect="off"
+                                   autocapitalize="off"
+                                   spellcheck="false">
+                        </div>
+                        
+                        <button onclick="loginStudent()" class="cta-button" style="width: 100%; margin: 1rem 0;" type="button">
+                            학습 현황 확인하기
+                        </button>
+                        
+                        <div style="text-align: center; margin-top: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 10px;">
+                            <h4 style="color: #667eea; margin-bottom: 0.5rem;">체험해보기</h4>
+                            <p style="font-size: 0.9rem; color: #666; margin-bottom: 1rem;">실제 시스템을 체험해보세요!</p>
+                            <p style="font-size: 0.9rem;"><strong>체험 계정:</strong> BB2025001 / 090315</p>
+                            <p style="font-size: 0.9rem;"><strong>체험 계정:</strong> BB2025002 / 080420</p>
+                        </div>
+                    </div>
+
+                    <!-- Student Dashboard -->
+                    <div id="studentDashboard" class="student-dashboard">
+                        <div class="dashboard-header">
+                            <h3 id="studentName">김○○ 학생</h3>
+                            <p id="studentInfo">중학교 3학년 | 등록일: 2024.09.01</p>
+                        </div>
+
+                        <div class="dashboard-grid">
+                            <!-- 성적 현황 -->
+                            <div class="dashboard-card">
+                                <div class="card-title">
+                                    📊 성적 현황
+                                </div>
+                                <div class="score-display">
+                                    <div class="score-number" id="currentScore">85점</div>
+                                    <div class="score-change">입소 후 +35점 향상 🎉</div>
+                                </div>
+                                <div class="recent-tests">
+                                    <h5>최근 시험 결과</h5>
+                                    <div class="test-item">
+                                        <span>2학기 중간고사</span>
+                                        <span class="test-score">85점</span>
+                                    </div>
+                                    <div class="test-item">
+                                        <span>1학기 기말고사</span>
+                                        <span class="test-score">72점</span>
+                                    </div>
+                                    <div class="test-item">
+                                        <span>1학기 중간고사</span>
+                                        <span class="test-score">50점</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 학습 진도 -->
+                            <div class="dashboard-card">
+                                <div class="card-title">
+                                    📚 학습 진도
+                                </div>
+                                <div>
+                                    <strong>현재 단원:</strong> 이차함수와 그래프
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 75%"></div>
+                                    </div>
+                                    <small>75% 완료</small>
+                                </div>
+                                <div style="margin-top: 1rem;">
+                                    <strong>이해도:</strong> 우수
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 85%"></div>
+                                    </div>
+                                    <small>85% (목표: 90%)</small>
+                                </div>
+                                <div style="margin-top: 1rem;">
+                                    <strong>다음 학습:</strong> 이차함수의 최댓값과 최솟값
+                                </div>
+                            </div>
+
+                            <!-- 출석 현황 -->
+                            <div class="dashboard-card">
+                                <div class="card-title">
+                                    📅 출석 현황
+                                </div>
+                                <div style="text-align: center; margin-bottom: 1rem;">
+                                    <span style="font-size: 1.5rem; font-weight: bold; color: #667eea;">98%</span>
+                                    <br><small>이번 달 출석률</small>
+                                </div>
+                                <div class="weekly-schedule">
+                                    <div class="schedule-day no-class">일</div>
+                                    <div class="schedule-day has-class">월</div>
+                                    <div class="schedule-day no-class">화</div>
+                                    <div class="schedule-day has-class">수</div>
+                                    <div class="schedule-day no-class">목</div>
+                                    <div class="schedule-day has-class">금</div>
+                                    <div class="schedule-day no-class">토</div>
+                                </div>
+                                <small style="margin-top: 0.5rem; display: block; text-align: center;">
+                                    월/수/금 오후 7:00-8:30
+                                </small>
+                            </div>
+
+                            <!-- 숙제 현황 -->
+                            <div class="dashboard-card">
+                                <div class="card-title">
+                                    ✏️ 숙제 현황
+                                </div>
+                                <ul class="homework-list">
+                                    <li class="homework-item">
+                                        <span>이차함수 문제집 p.45-47</span>
+                                        <span class="homework-status completed">완료</span>
+                                    </li>
+                                    <li class="homework-item">
+                                        <span>복습 프린트 1장</span>
+                                        <span class="homework-status completed">완료</span>
+                                    </li>
+                                    <li class="homework-item">
+                                        <span>오답노트 정리</span>
+                                        <span class="homework-status pending">진행중</span>
+                                    </li>
+                                </ul>
+                                <div style="margin-top: 1rem; padding: 0.8rem; background: #e8f5e8; border-radius: 8px;">
+                                    <small style="color: #155724;">
+                                        💡 <strong>선생님 메모:</strong> 오늘 이차함수 그래프 그리기를 완전히 이해했네요! 내일은 최댓값/최솟값 문제를 풀어보겠습니다.
+                                    </small>
+                                </div>
+                            </div>
+
+                            <!-- 성취 배지 -->
+                            <div class="dashboard-card">
+                                <div class="card-title">
+                                    🏆 성취 배지
+                                </div>
+                                <div>
+                                    <span class="achievement-badge">🎯 목표 달성</span>
+                                    <span class="achievement-badge">📈 성적 향상</span>
+                                    <span class="achievement-badge">💯 완벽 출석</span>
+                                    <span class="achievement-badge">✏️ 숙제왕</span>
+                                    <span class="achievement-badge">🧠 이해력 우수</span>
+                                </div>
+                                <div style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                                    다음 배지: "한 달 연속 90점" (현재 진행률: 80%)
+                                </div>
+                            </div>
+
+                            <!-- 학부모 메모 -->
+                            <div class="dashboard-card">
+                                <div class="card-title">
+                                    💌 학부모님께
+                                </div>
+                                <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; font-style: italic;">
+                                    "○○이가 수학에 대한 자신감이 많이 늘었습니다. 특히 이차함수 단원에서 어려워하던 부분을 차근차근 설명해드린 결과, 이제는 스스로 문제를 풀어내고 있어요. 다음 목표는 기말고사에서 90점 달성입니다!"
+                                </div>
+                                <div style="text-align: right; margin-top: 0.5rem; font-size: 0.9rem; color: #667eea;">
+                                    - 김수학 선생님
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="logoutStudent()" class="logout-btn" type="button">로그아웃</button>
+                        <div style="clear: both;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section id="success" class="success-stories">
+        <div class="container">
+            <h2 class="section-title">실제 성공 사례</h2>
+            <div class="stories-grid">
+                <div class="story-card">
+                    <div class="story-header">
+                        <div class="story-avatar">김○○</div>
+                        <div class="story-info">
+                            <h4>김○○ 학생</h4>
+                            <div class="story-grade">대구 ○○중학교 3학년</div>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        "수학을 완전히 포기했었는데, 선생님의 세심한 케어 덕분에 자신감을 되찾았어요. 이해할 때까지 끝까지 설명해주시고, 매일 카톡으로 확인해주셔서 꾸준히 할 수 있었어요."
+                    </div>
+                    <div class="grade-improvement">50점 → 85점 (35점 상승)</div>
+                </div>
+                
+                <div class="story-card">
+                    <div class="story-header">
+                        <div class="story-avatar">이○○</div>
+                        <div class="story-info">
+                            <h4>이○○ 학생</h4>
+                            <div class="story-grade">수성구 ○○고등학교 2학년</div>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        "대형 학원에서는 질문하기도 어려웠는데, 여기서는 모르는 것을 부끄럽지 않게 질문할 수 있어요. 개념부터 차근차근 설명해주셔서 수학이 재미있어졌어요!"
+                    </div>
+                    <div class="grade-improvement">4등급 → 1등급 달성</div>
+                </div>
+                
+                <div class="story-card">
+                    <div class="story-header">
+                        <div class="story-avatar">박○○</div>
+                        <div class="story-info">
+                            <h4>박○○ 학생 어머니</h4>
+                            <div class="story-grade">학부모</div>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        "매일 카톡으로 아이 수업 상황을 알려주셔서 정말 안심이 돼요. 아이가 무엇을 배우고 어떤 부분이 부족한지 투명하게 알 수 있어서 믿고 맡길 수 있습니다."
+                    </div>
+                    <div class="grade-improvement">학부모 만족도 ★★★★★</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teacher Section -->
+    <section id="teacher" class="teacher-section">
+        <div class="container">
+            <h2 class="section-title">전문 교사진 소개</h2>
+            <div class="teacher-card">
+                <div class="teacher-content">
+                    <div class="teacher-image">👨‍🏫</div>
+                    <div class="teacher-info">
+                        <h3 class="teacher-name">김수학 원장</h3>
+                        <p class="teacher-title">서울대학교 수학교육과 졸업 | 15년 경력</p>
+                        <ul class="teacher-credentials">
+                            <li>서울대학교 수학교육과 학사/석사 졸업</li>
+                            <li>대형 프랜차이즈 학원 수학팀장 역임</li>
+                            <li>중등수학 지도사 1급 자격증 보유</li>
+                            <li>15년간 1,500명 이상 학생 지도</li>
+                            <li>명문고 진학률 85% 달성</li>
+                            <li>매년 전국 수학 교육 연수 참가</li>
+                        </ul>
+                        <p><strong>"아이 한 명 한 명의 가능성을 믿고, 수학의 재미를 알려주는 것이 제 교육 철학입니다."</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>무료 상담 신청</h3>
+                    <p style="margin-bottom: 2rem;">우리 아이에게 맞는 학습 방법을 찾아보세요. 무료 학습 진단과 상담을 받아보실 수 있습니다.</p>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <strong>전화상담</strong><br>
+                            053-XXX-XXXX
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">💬</div>
+                        <div>
+                            <strong>카카오톡 상담</strong><br>
+                            @BB교습소
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>위치</strong><br>
+                            대구 수성구 범어동 XXX-XX
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div>
+                            <strong>운영시간</strong><br>
+                            평일 14:00-22:00<br>
+                            토요일 09:00-18:00
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 1.5rem;">빠른 상담 신청</h3>
+                    <form onsubmit="submitForm(event)">
+                        <div class="form-group">
+                            <label for="parentName">학부모 성함*</label>
+                            <input type="text" id="parentName" name="parentName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="studentName">학생 이름*</label>
+                            <input type="text" id="studentName" name="studentName" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="grade">학년*</label>
+                            <select id="grade" name="grade" style="width: 100%; padding: 12px; border: none; border-radius: 8px; background: rgba(255,255,255,0.9); font-size: 1rem;" required>
+                                <option value="">선택해주세요</option>
+                                <option value="중1">중학교 1학년</option>
+                                <option value="중2">중학교 2학년</option>
+                                <option value="중3">중학교 3학년</option>
+                                <option value="고1">고등학교 1학년</option>
+                                <option value="고2">고등학교 2학년</option>
+                                <option value="고3">고등학교 3학년</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">연락처*</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">상담 희망 내용</label>
+                            <textarea id="message" name="message" placeholder="현재 수학 성적, 고민사항, 목표 등을 자유롭게 적어주세요."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="cta-button" style="width: 100%; margin: 0;">무료 상담 신청하기</button>
+                    </form>
+                    
+                    <p style="font-size: 0.9rem; margin-top: 1rem; opacity: 0.8;">
+                        * 상담 신청 후 24시간 내에 연락드립니다.<br>
+                        * 개인정보는 상담 목적으로만 사용됩니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 BB교습소. 모든 권리 보유.</p>
+            <p>사업자등록번호: XXX-XX-XXXXX | 대표: 김수학 | 주소: 대구 수성구 범어동 XXX-XX</p>
+        </div>
+    </footer>
+
+    <!-- Error Modal -->
+    <div id="errorModal" class="modal error-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeErrorModal()">&times;</span>
+            <div class="modal-header">
+                <div class="error-icon">⚠️</div>
+                <h3 class="error-title">로그인 실패</h3>
+            </div>
+            <div class="error-message">
+                학생 고유번호 또는 비밀번호가 올바르지 않습니다.<br>
+                아래 정보를 확인해주세요.
+            </div>
+            
+            <div class="demo-accounts">
+                <h4>✅ 체험 계정</h4>
+                <div class="demo-account">
+                    <div class="account-info">
+                        <div class="account-id">BB2025001</div>
+                        <div class="account-pw">비밀번호: 090315</div>
+                    </div>
+                    <button class="copy-btn" onclick="fillAccount('BB2025001', '090315')" type="button">입력하기</button>
+                </div>
+                <div class="demo-account">
+                    <div class="account-info">
+                        <div class="account-id">BB2025002</div>
+                        <div class="account-pw">비밀번호: 080420</div>
+                    </div>
+                    <button class="copy-btn" onclick="fillAccount('BB2025002', '080420')" type="button">입력하기</button>
+                </div>
+            </div>
+            
+            <div class="error-tips">
+                <h4>💡 입력 확인사항</h4>
+                <ul>
+                    <li>대소문자를 정확히 입력해주세요</li>
+                    <li>공백 없이 입력해주세요</li>
+                    <li>비밀번호는 숫자 6자리입니다</li>
+                    <li>복사&붙여넣기 시 앞뒤 공백을 확인해주세요</li>
+                </ul>
+            </div>
+            
+            <div class="modal-buttons">
+                <button class="modal-btn secondary" onclick="closeErrorModal()" type="button">닫기</button>
+                <button class="modal-btn primary" onclick="closeErrorModal(); document.getElementById('studentId').focus();" type="button">다시 입력</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal success-modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSuccessModal()">&times;</span>
+            <div class="modal-header">
+                <div class="success-icon">🎉</div>
+                <h3 class="success-title">로그인 성공!</h3>
+            </div>
+            <div class="error-message">
+                학습 현황을 불러오고 있습니다...<br>
+                잠시만 기다려주세요.
+            </div>
+            <div style="text-align: center; margin: 1rem 0;">
+                <div class="loading-spinner" style="width: 30px; height: 30px; margin: 0 auto;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <div class="floating-action" onclick="openModal()">
+        💬
+    </div>
+
+    <!-- Modal -->
+    <div id="kakaoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 style="margin-bottom: 1rem;">카카오톡 상담</h2>
+            <p style="margin-bottom: 1.5rem;">더 빠르고 편리한 상담을 원하시나요?</p>
+            
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <div style="width: 150px; height: 150px; background: #fee500; margin: 0 auto; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 3rem; margin-bottom: 1rem;">
+                    QR
+                </div>
+                <p>QR 코드를 스캔하거나<br>아래 버튼을 클릭해주세요</p>
+            </div>
+            
+            <button class="cta-button" style="width: 100%; background: #fee500; color: #000; margin: 0;" onclick="openKakao()" type="button">
+                카카오톡으로 상담하기
+            </button>
+            
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                평일 14:00-22:00 | 토요일 09:00-18:00<br>
+                일요일/공휴일은 다음 영업일에 답변드립니다.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 모바일 감지
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+        // 모바일 최적화된 스크롤 함수
+        function scrollToStudentCheck(event) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            console.log('학습현황 확인하기 클릭됨'); // 디버깅용
+            
+            // 모바일 메뉴가 열려있다면 닫기
+            closeMobileMenu();
+            
+            // 약간의 지연 후 스크롤 (모바일 메뉴 닫기 애니메이션 고려)
+            setTimeout(() => {
+                const target = document.getElementById('student-check');
+                if (!target) {
+                    console.error('student-check 섹션을 찾을 수 없습니다');
+                    return;
+                }
+                
+                if (isMobile) {
+                    // 모바일: 정확한 위치 계산으로 스크롤
+                    const headerHeight = document.querySelector('header')?.offsetHeight || 80;
+                    const targetRect = target.getBoundingClientRect();
+                    const currentScrollY = window.pageYOffset;
+                    const targetTop = targetRect.top + currentScrollY;
+                    
+                    // 모바일에서 더 많은 여백을 줘서 완전히 보이도록
+                    const mobileOffset = 100;
+                    const finalPosition = Math.max(0, targetTop - headerHeight - mobileOffset);
+                    
+                    console.log('모바일 스크롤:', { targetTop, headerHeight, finalPosition }); // 디버깅용
+                    
+                    // 모바일에 최적화된 스크롤
+                    if ('scrollBehavior' in document.documentElement.style) {
+                        window.scrollTo({
+                            top: finalPosition,
+                            behavior: 'smooth'
+                        });
+                    } else {
+                        // 오래된 모바일 브라우저 대비 폴백
+                        window.scrollTo(0, finalPosition);
+                    }
+                    
+                    // iOS에서 추가 확인
+                    if (isIOS) {
+                        setTimeout(() => {
+                            const portalContainer = target.querySelector('.portal-container');
+                            if (portalContainer) {
+                                const containerRect = portalContainer.getBoundingClientRect();
+                                if (containerRect.top < 100) {
+                                    window.scrollBy({
+                                        top: -50,
+                                        behavior: 'smooth'
+                                    });
+                                }
+                            }
+                        }, 700);
+                    }
+                    
+                } else {
+                    // 데스크톱: 표준 스크롤
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+                
+                // 스크롤 완료 후 입력 필드에 포커스 (모바일에서는 선택적)
+                setTimeout(() => {
+                    if (!isMobile) {
+                        const studentIdInput = document.getElementById('studentId');
+                        if (studentIdInput) {
+                            studentIdInput.focus();
+                        }
+                    }
+                }, 1000);
+                
+            }, isMobile ? 300 : 100);
+        }
+
+        // 일반 스크롤 함수 (다른 링크용)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const href = this.getAttribute('href');
+                
+                // 학습현황 확인은 별도 함수 사용
+                if (href === '#student-check') {
+                    scrollToStudentCheck(e);
+                    return;
+                }
+                
+                const target = document.querySelector(href);
+                if (target) {
+                    closeMobileMenu();
+                    
+                    setTimeout(() => {
+                        if (isMobile) {
+                            const headerHeight = document.querySelector('header')?.offsetHeight || 80;
+                            const targetRect = target.getBoundingClientRect();
+                            const currentScrollY = window.pageYOffset;
+                            const targetTop = targetRect.top + currentScrollY;
+                            const finalPosition = Math.max(0, targetTop - headerHeight - 20);
+                            
+                            window.scrollTo({
+                                top: finalPosition,
+                                behavior: 'smooth'
+                            });
+                        } else {
+                            target.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }, 100);
+                }
+            });
+        });
+
+        // 모바일 메뉴 함수들
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!mobileNav || !menuBtn) return;
+            
+            mobileNav.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+            
+            // 바디 스크롤 제어
+            if (mobileNav.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+                if (isIOS) {
+                    document.body.style.position = 'fixed';
+                    document.body.style.width = '100%';
+                }
+            } else {
+                document.body.style.overflow = '';
+                if (isIOS) {
+                    document.body.style.position = '';
+                    document.body.style.width = '';
+                }
+            }
+        }
+        
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!mobileNav || !menuBtn) return;
+            
+            mobileNav.classList.remove('active');
+            menuBtn.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            if (isIOS) {
+                document.body.style.position = '';
+                document.body.style.width = '';
+            }
+        }
+
+        // 모바일 메뉴 외부 클릭 시 닫기
+        document.addEventListener('click', function(event) {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (mobileNav && menuBtn && mobileNav.classList.contains('active') && 
+                !mobileNav.contains(event.target) && 
+                !menuBtn.contains(event.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // 리사이즈 시 모바일 메뉴 닫기
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // 모달 함수들
+        function showErrorModal() {
+            const modal = document.getElementById('errorModal');
+            if (!modal) return;
+            
+            modal.style.display = 'flex';
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            
+            if (isIOS) {
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
+                const scrollY = window.scrollY;
+                document.body.style.top = `-${scrollY}px`;
+                document.body.dataset.scrollY = scrollY;
+            }
+        }
+        
+        function closeErrorModal() {
+            const modal = document.getElementById('errorModal');
+            if (!modal) return;
+            
+            modal.style.display = 'none';
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+            
+            if (isIOS && document.body.dataset.scrollY) {
+                const scrollY = document.body.dataset.scrollY;
+                document.body.style.position = '';
+                document.body.style.width = '';
+                document.body.style.top = '';
+                window.scrollTo(0, parseInt(scrollY || '0'));
+                delete document.body.dataset.scrollY;
+            }
+        }
+        
+        function showSuccessModal() {
+            const modal = document.getElementById('successModal');
+            if (!modal) return;
+            
+            modal.style.display = 'flex';
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+            
+            if (isIOS) {
+                document.body.style.position = 'fixed';
+                document.body.style.width = '100%';
+                const scrollY = window.scrollY;
+                document.body.style.top = `-${scrollY}px`;
+                document.body.dataset.scrollY = scrollY;
+            }
+        }
+        
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            if (!modal) return;
+            
+            modal.style.display = 'none';
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+            
+            if (isIOS && document.body.dataset.scrollY) {
+                const scrollY = document.body.dataset.scrollY;
+                document.body.style.position = '';
+                document.body.style.width = '';
+                document.body.style.top = '';
+                window.scrollTo(0, parseInt(scrollY || '0'));
+                delete document.body.dataset.scrollY;
+            }
+        }
+
+        // 계정 자동 입력 함수
+        function fillAccount(id, password) {
+            const idField = document.getElementById('studentId');
+            const passwordField = document.getElementById('studentPassword');
+            
+            if (!idField || !passwordField) return;
+            
+            idField.value = id;
+            passwordField.value = password;
+            
+            closeErrorModal();
+            
+            // 시각적 피드백
+            [idField, passwordField].forEach((input, index) => {
+                setTimeout(() => {
+                    input.style.borderColor = '#28a745';
+                    input.style.backgroundColor = '#f8fff8';
+                    input.style.transform = 'scale(1.02)';
+                    
+                    setTimeout(() => {
+                        input.style.transform = 'scale(1)';
+                    }, 150);
+                }, index * 200);
+            });
+            
+            // 스타일 리셋
+            setTimeout(() => {
+                [idField, passwordField].forEach(input => {
+                    input.style.borderColor = '#e0e0e0';
+                    input.style.backgroundColor = '#fff';
+                });
+            }, 3000);
+            
+            // 모바일에서 성공 메시지
+            if (isMobile) {
+                const successMsg = document.createElement('div');
+                successMsg.innerHTML = '✅ 체험 계정이 입력되었습니다!';
+                successMsg.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: #28a745;
+                    color: white;
+                    padding: 1rem 2rem;
+                    border-radius: 10px;
+                    z-index: 3000;
+                    font-weight: bold;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                `;
+                
+                document.body.appendChild(successMsg);
+                setTimeout(() => successMsg.remove(), 2000);
+            }
+        }
+
+        // 입력 검증 함수
+        function validateInput() {
+            const studentId = document.getElementById('studentId')?.value.trim() || '';
+            const password = document.getElementById('studentPassword')?.value.trim() || '';
+            
+            if (!studentId && !password) {
+                showValidationError('입력 필드가 비어있습니다', '학생 고유번호와 비밀번호를 모두 입력해주세요.<br><br>처음 방문이시라면 아래 체험 계정을 사용해보세요!');
+                return false;
+            }
+            
+            if (!studentId) {
+                showValidationError('고유번호를 입력해주세요', '학생 고유번호 필드가 비어있습니다.<br><br>체험용 고유번호를 아래에서 선택하실 수 있습니다.');
+                return false;
+            }
+            
+            if (!password) {
+                showValidationError('비밀번호를 입력해주세요', '비밀번호 필드가 비어있습니다.<br><br>체험용 비밀번호를 아래에서 확인하실 수 있습니다.');
+                return false;
+            }
+            
+            if (!/^BB\d{7}$/.test(studentId)) {
+                showValidationError('고유번호 형식을 확인해주세요', `입력하신 "${studentId}"은 올바른 형식이 아닙니다.<br><br>고유번호는 <strong>"BB" + 숫자 7자리</strong> 형태입니다.<br>(예: BB2025001)<br><br>아래 체험 계정을 사용해보세요!`);
+                return false;
+            }
+            
+            if (!/^\d{6}$/.test(password)) {
+                showValidationError('비밀번호 형식을 확인해주세요', `입력하신 "${password}"은 올바른 형식이 아닙니다.<br><br>비밀번호는 <strong>숫자 6자리</strong>입니다.<br>(예: 090315)<br><br>아래 체험 계정을 사용해보세요!`);
+                return false;
+            }
+            
+            return true;
+        }
+        
+        function showValidationError(title, message) {
+            const errorTitle = document.querySelector('.error-title');
+            const errorMessage = document.querySelector('.error-message');
+            
+            if (errorTitle) errorTitle.textContent = title;
+            if (errorMessage) errorMessage.innerHTML = message;
+            
+            showErrorModal();
+        }
+
+        // 학생 로그인 함수
+        function loginStudent() {
+            console.log('로그인 함수 호출됨'); // 디버깅용
+            
+            if (!validateInput()) {
+                return;
+            }
+            
+            const studentId = document.getElementById('studentId').value.trim();
+            const password = document.getElementById('studentPassword').value.trim();
+            
+            // 로딩 상태 표시
+            const loginBtn = event?.target || document.querySelector('.login-form .cta-button');
+            if (loginBtn) {
+                const originalText = loginBtn.textContent;
+                loginBtn.innerHTML = '<span class="loading-spinner"></span>확인 중...';
+                loginBtn.disabled = true;
+                
+                // iOS에서 키보드 숨기기
+                if (isIOS) {
+                    document.activeElement?.blur();
+                }
+                
+                showSuccessModal();
+                
+                // 로그인 처리 시뮬레이션
+                setTimeout(() => {
+                    closeSuccessModal();
+                    
+                    // 체험 계정 데이터
+                    const studentData = {
+                        'BB2025001': {
+                            name: '김○○',
+                            info: '중학교 3학년 | 등록일: 2024.09.01',
+                            score: '85점',
+                            improvement: '+35점',
+                            password: '090315'
+                        },
+                        'BB2025002': {
+                            name: '이○○',
+                            info: '고등학교 2학년 | 등록일: 2024.08.15',
+                            score: '78점',
+                            improvement: '+23점',
+                            password: '080420'
+                        }
+                    };
+                    
+                    // 인증 확인
+                    if (studentData[studentId] && studentData[studentId].password === password) {
+                        // 대시보드 업데이트
+                        const nameEl = document.getElementById('studentName');
+                        const infoEl = document.getElementById('studentInfo');
+                        const scoreEl = document.getElementById('currentScore');
+                        const changeEl = document.querySelector('.score-change');
+                        
+                        if (nameEl) nameEl.textContent = studentData[studentId].name + ' 학생';
+                        if (infoEl) infoEl.textContent = studentData[studentId].info;
+                        if (scoreEl) scoreEl.textContent = studentData[studentId].score;
+                        if (changeEl) changeEl.textContent = `입소 후 ${studentData[studentId].improvement} 향상 🎉`;
+                        
+                        // 화면 전환
+                        const loginSection = document.getElementById('loginSection');
+                        const dashboard = document.getElementById('studentDashboard');
+                        
+                        if (loginSection) loginSection.style.display = 'none';
+                        if (dashboard) dashboard.style.display = 'block';
+                        
+                        // 대시보드로 스크롤
+                        setTimeout(() => {
+                            if (dashboard) {
+                                if (isMobile) {
+                                    const rect = dashboard.getBoundingClientRect();
+                                    const currentScrollY = window.pageYOffset;
+                                    const targetTop = rect.top + currentScrollY;
+                                    const headerHeight = document.querySelector('header')?.offsetHeight || 80;
+                                    const finalPosition = Math.max(0, targetTop - headerHeight - 20);
+                                    
+                                    window.scrollTo({
+                                        top: finalPosition,
+                                        behavior: 'smooth'
+                                    });
+                                } else {
+                                    dashboard.scrollIntoView({ 
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }
+                            }
+                        }, 100);
+                        
+                        // 프로그레스 바 애니메이션
+                        setTimeout(() => {
+                            document.querySelectorAll('.progress-fill').forEach(bar => {
+                                const width = bar.style.width;
+                                bar.style.width = '0%';
+                                setTimeout(() => {
+                                    bar.style.width = width;
+                                }, 100);
+                            });
+                        }, 500);
+                        
+                    } else {
+                        // 로그인 실패
+                        showErrorModal();
+                    }
+                    
+                    // 버튼 상태 복원
+                    if (loginBtn) {
+                        loginBtn.textContent = originalText;
+                        loginBtn.disabled = false;
+                    }
+                    
+                }, 1500);
+            }
+        }
+
+        // 로그아웃 함수
+        function logoutStudent() {
+            if (confirm('로그아웃 하시겠습니까?')) {
+                const loginSection = document.getElementById('loginSection');
+                const dashboard = document.getElementById('studentDashboard');
+                const idField = document.getElementById('studentId');
+                const pwField = document.getElementById('studentPassword');
+                
+                if (loginSection) loginSection.style.display = 'block';
+                if (dashboard) dashboard.style.display = 'none';
+                if (idField) idField.value = '';
+                if (pwField) pwField.value = '';
+                
+                // 로그인 섹션으로 스크롤
+                setTimeout(() => {
+                    const studentCheck = document.getElementById('student-check');
+                    if (studentCheck) {
+                        if (isMobile) {
+                            const rect = studentCheck.getBoundingClientRect();
+                            const currentScrollY = window.pageYOffset;
+                            const targetTop = rect.top + currentScrollY;
+                            const headerHeight = document.querySelector('header')?.offsetHeight || 80;
+                            const finalPosition = Math.max(0, targetTop - headerHeight - 20);
+                            
+                            window.scrollTo({
+                                top: finalPosition,
+                                behavior: 'smooth'
+                            });
+                        } else {
+                            studentCheck.scrollIntoView({ 
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                }, 100);
+            }
+        }
+
+        // 입력 핸들링
+        function handleInputFocus(event) {
+            const input = event.target;
+            
+            if (isIOS) {
+                input.setAttribute('autocomplete', 'off');
+                input.setAttribute('autocorrect', 'off');
+                input.setAttribute('autocapitalize', 'off');
+                input.setAttribute('spellcheck', 'false');
+                input.style.fontSize = '16px';
+                
+                setTimeout(() => {
+                    input.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center'
+                    });
+                }, 300);
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                
+                if (event.target.id === 'studentId') {
+                    const passwordField = document.getElementById('studentPassword');
+                    if (passwordField) {
+                        passwordField.focus();
+                        
+                        if (isIOS) {
+                            setTimeout(() => {
+                                passwordField.scrollIntoView({ 
+                                    behavior: 'smooth', 
+                                    block: 'center'
+                                });
+                            }, 100);
+                        }
+                    }
+                } else if (event.target.id === 'studentPassword') {
+                    if (isIOS) {
+                        event.target.blur();
+                        setTimeout(() => loginStudent(), 200);
+                    } else {
+                        loginStudent();
+                    }
+                }
+            }
+        }
+
+        // 폼 제출
+        function submitForm(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            if (!data.parentName || !data.studentName || !data.grade || !data.phone) {
+                alert('필수 항목을 모두 입력해주세요.');
+                return;
+            }
+            
+            alert(`상담 신청이 완료되었습니다!\n\n학부모: ${data.parentName}\n학생: ${data.studentName}\n학년: ${data.grade}\n연락처: ${data.phone}\n\n24시간 내에 연락드리겠습니다.`);
+            
+            event.target.reset();
+        }
+
+        // 카카오톡 모달 함수들
+        function openModal() {
+            const modal = document.getElementById('kakaoModal');
+            if (modal) modal.style.display = 'block';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('kakaoModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function openKakao() {
+            alert('카카오톡 앱으로 이동합니다.\n채널명: @BB교습소');
+            closeModal();
+        }
+
+        // 모달 외부 클릭 시 닫기
+        window.onclick = function(event) {
+            const kakaoModal = document.getElementById('kakaoModal');
+            const errorModal = document.getElementById('errorModal');
+            const successModal = document.getElementById('successModal');
+            
+            if (event.target === kakaoModal) closeModal();
+            else if (event.target === errorModal) closeErrorModal();
+            else if (event.target === successModal) closeSuccessModal();
+        }
+
+        // 헤더 스크롤 효과
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (header) {
+                if (window.scrollY > 100) {
+                    header.style.background = 'rgba(102, 126, 234, 0.95)';
+                } else {
+                    header.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                }
+            }
+        });
+
+        // 숫자 애니메이션
+        function animateNumbers() {
+            const numbers = document.querySelectorAll('.stat-number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const finalNumber = parseFloat(target.textContent);
+                        let currentNumber = 0;
+                        const increment = finalNumber / 50;
+                        
+                        const timer = setInterval(() => {
+                            currentNumber += increment;
+                            if (currentNumber >= finalNumber) {
+                                target.textContent = finalNumber + (finalNumber < 10 ? '' : '');
+                                clearInterval(timer);
+                            } else {
+                                target.textContent = Math.floor(currentNumber);
+                            }
+                        }, 30);
+                        
+                        observer.unobserve(target);
+                    }
+                });
+            });
+            
+            numbers.forEach(number => observer.observe(number));
+        }
+
+        // 페이지 로드 시 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('페이지 로드 완료'); // 디버깅용
+            
+            animateNumbers();
+            
+            // iOS 최적화
+            if (isIOS) {
+                // 뷰포트 높이 설정
+                const setViewportHeight = () => {
+                    const vh = window.innerHeight * 0.01;
+                    document.documentElement.style.setProperty('--vh', `${vh}px`);
+                };
+                
+                setViewportHeight();
+                
+                window.addEventListener('orientationchange', () => {
+                    setTimeout(setViewportHeight, 100);
+                });
+                
+                window.addEventListener('resize', () => {
+                    setTimeout(setViewportHeight, 100);
+                });
+                
+                // iOS 러버밴드 스크롤 방지
+                document.body.addEventListener('touchmove', function(e) {
+                    if (e.target === document.body) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+            }
+            
+            // 터치 이벤트 최적화
+            if (isMobile) {
+                document.addEventListener('touchstart', function() {}, { passive: true });
+            }
+        });
+
+        // 추가 디버깅 함수
+        function debugScrollToStudentCheck() {
+            console.log('수동 스크롤 테스트');
+            scrollToStudentCheck();
+        }
+
+        // 전역으로 함수 노출 (디버깅용)
+        window.scrollToStudentCheck = scrollToStudentCheck;
+        window.debugScrollToStudentCheck = debugScrollToStudentCheck;
+    </script>
+</body>
+</html>
